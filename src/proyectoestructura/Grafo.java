@@ -56,8 +56,8 @@ public class Grafo {
             aux = primero;
             while (aux != null) {
                 if (aux.aristas.primero.equals(dato)) {
-                    primero = primero.sig;
-                    primero.ant = null;
+                    aux.aristas.primero = aux.aristas.primero.sig;
+                    aux.aristas.primero.ant = null;
 
                 } else {
                     Nodo aux2 = aux.aristas.primero;
@@ -65,10 +65,8 @@ public class Grafo {
                         aux2 = aux2.sig;
 
                     }
-
-                    aux2.sig = aux2.sig.sig;
-                    aux2.sig.ant = aux2;
-
+                    aux2.ant.sig = aux2.sig;
+                    aux2.sig.ant = aux2.ant;
                 }
                 aux = aux.sig;
             }
