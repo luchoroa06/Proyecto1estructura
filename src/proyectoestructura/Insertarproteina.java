@@ -4,6 +4,7 @@
  */
 package proyectoestructura.ventanas;
 
+import javax.swing.JOptionPane;
 import proyectoestructura.Grafo;
 
 /**
@@ -39,7 +40,7 @@ public class Insertarproteina extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         peso = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        proteinados = new javax.swing.JTextField();
+        proteina2 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -62,7 +63,7 @@ public class Insertarproteina extends javax.swing.JFrame {
 
         jLabel3.setText("Inserta el peso de la arista");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 70, -1, -1));
-        jPanel1.add(proteinados, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 230, 130, 50));
+        jPanel1.add(proteina2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 230, 130, 50));
 
         jLabel4.setText("Inserta el nombre de la segunda proteina");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 200, -1, -1));
@@ -71,7 +72,8 @@ public class Insertarproteina extends javax.swing.JFrame {
         jButton2.addActionListener(this::jButton2ActionPerformed);
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 480, -1, -1));
 
-        jButton3.setText("Insertar peso");
+        jButton3.setText("Agregar Arista");
+        jButton3.addActionListener(this::jButton3ActionPerformed);
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 160, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, 550));
@@ -83,6 +85,21 @@ public class Insertarproteina extends javax.swing.JFrame {
 modificargrafo m = new modificargrafo (grafo);
 this.dispose();// TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try{
+            String proteina = this.proteina.getText();
+            String proteina2 = this.proteina2.getText();
+            int peso = Integer.parseInt(this.peso.getText());
+            grafo.insertarArista(grafo.buscar(proteina), grafo.buscar(proteina2), peso);
+            JOptionPane.showMessageDialog(rootPane, "Proteinas agregadas con exito");
+            
+        }catch(Exception e){
+            
+            JOptionPane.showMessageDialog(rootPane, "Error");
+            
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -120,6 +137,6 @@ this.dispose();// TODO add your handling code here:
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField peso;
     private javax.swing.JTextField proteina;
-    private javax.swing.JTextField proteinados;
+    private javax.swing.JTextField proteina2;
     // End of variables declaration//GEN-END:variables
 }

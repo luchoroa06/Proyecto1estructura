@@ -4,6 +4,7 @@
  */
 package proyectoestructura.ventanas;
 
+import javax.swing.JOptionPane;
 import proyectoestructura.Grafo;
 
 /**
@@ -52,6 +53,7 @@ public class eliminarproteina extends javax.swing.JFrame {
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 110, -1, -1));
 
         jButton1.setText("Eliminar");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 210, -1, -1));
 
         jButton2.setText("Atras");
@@ -67,6 +69,18 @@ public class eliminarproteina extends javax.swing.JFrame {
 modificargrafo m = new modificargrafo (grafo);
 this.dispose();// TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try{
+            String nombre = this.proteina.getText();
+            grafo.eliminar(nombre);
+            JOptionPane.showMessageDialog(rootPane, "proteina eliminada con exito");
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, "Error en el nombre de la proteina");
+            
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
