@@ -78,5 +78,11 @@ public class Grafo {
         }
         return salida;
     }
+    public void insertarLista(Vertice a, Vertice b, int peso){
+        if(a != null && b != null){
+           b.aristas.insertar(a.proteina, peso);
+           a.aristas.insertar(b.proteina, peso);
+        }
+    }
 
 }
