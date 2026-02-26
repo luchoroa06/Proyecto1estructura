@@ -43,6 +43,7 @@ public class Lista {
                 primero = primero.sig;
                 primero.ant = null;
                 t--;
+                
                 return;
             }
             while (aux.sig != null && !aux.sig.dato.equals(dato)) {

@@ -42,6 +42,7 @@ public class Grafo {
                 primero = primero.sig;
                 primero.ant = null;
                 t--;
+
                 return;
             }
             while (aux.sig != null && !aux.sig.proteina.equals(dato)) {
@@ -51,6 +52,25 @@ public class Grafo {
                 aux.sig = aux.sig.sig;
                 aux.sig.ant = aux;
                 t--;
+            }
+            aux = primero;
+            while (aux != null) {
+                if (aux.aristas.primero.equals(dato)) {
+                    primero = primero.sig;
+                    primero.ant = null;
+
+                } else {
+                    Nodo aux2 = aux.aristas.primero;
+                    while (!aux2.dato.equals(dato)) {
+                        aux2 = aux2.sig;
+
+                    }
+
+                    aux2.sig = aux2.sig.sig;
+                    aux2.sig.ant = aux2;
+
+                }
+                aux = aux.sig;
             }
 
         }
@@ -73,15 +93,16 @@ public class Grafo {
         Vertice aux = primero;
 
         while (aux != null) {
-            salida += "[" + aux.proteina + "] ---> " + aux.aristas.mostrar() + "\n" ;
+            salida += "[" + aux.proteina + "] ---> " + aux.aristas.mostrar() + "\n";
             aux = aux.sig;
         }
         return salida;
     }
-    public void insertarLista(Vertice a, Vertice b, int peso){
-        if(a != null && b != null){
-           b.aristas.insertar(a.proteina, peso);
-           a.aristas.insertar(b.proteina, peso);
+
+    public void insertarArista(Vertice a, Vertice b, int peso) {
+        if (a != null && b != null) {
+            b.aristas.insertar(a.proteina, peso);
+            a.aristas.insertar(b.proteina, peso);
         }
     }
 
