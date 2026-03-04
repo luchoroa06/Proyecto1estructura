@@ -102,6 +102,29 @@ public class Grafo {
             b.aristas.insertar(a.proteina, peso);
             a.aristas.insertar(b.proteina, peso);
         }
+        
+        
+    
     }
-
+    
+    public Vertice mostrador_proteina(Vertice a){
+        int cont = 0;
+        Vertice aux = primero;
+        Vertice Mayorzote = aux;
+        int Valorista = 0;
+        while(aux != null){
+            cont = 0;
+            Nodo aux2 = aux.aristas.primero;
+            while(aux2 != null){
+                aux2 = aux2.sig;
+                cont++;
+                }
+            if(cont > Valorista){
+                Valorista = cont;
+                Mayorzote = aux;
+            }
+            aux = aux.sig;
+        }
+        return Mayorzote;
+    }
 }
