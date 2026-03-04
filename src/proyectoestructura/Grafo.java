@@ -107,7 +107,7 @@ public class Grafo {
     
     }
     
-    public Vertice mostrador_proteina(Vertice a){
+    public Vertice mostrador_proteina(){
         int cont = 0;
         Vertice aux = primero;
         Vertice Mayorzote = aux;

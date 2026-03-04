@@ -8,18 +8,15 @@ package proyectoestructura;
  *
  * @author PC
  */
-public class Vertice {
-    public String proteina;
-    Lista aristas;
-    Vertice sig;
-    Vertice ant;
+public class NodoCola {
+    NodoCola sig;
+    Vertice dato;
 
-    public Vertice(String proteina) {
-        this.proteina = proteina;
-        this.aristas = new Lista();
+    public NodoCola(Vertice dato) {
         this.sig = null;
-        this.ant = null;
+        this.dato = dato;
     }
+    
     
     
     
