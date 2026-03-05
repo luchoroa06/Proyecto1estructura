@@ -6,7 +6,7 @@ package proyectoestructura;
 
 /**
  *
- * @author PC
+ * @author sebas
  */
 public class Cola {
     NodoCola primero;
@@ -38,3 +38,4 @@ public class Cola {
     
     
 }
+

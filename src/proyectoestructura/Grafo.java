@@ -9,7 +9,6 @@ package proyectoestructura;
  * @author PC
  */
 public class Grafo {
-
     Vertice primero;
     int t;
 
@@ -19,6 +18,10 @@ public class Grafo {
     }
 
     public void insertar(String dato) {
+        Vertice a = this.buscar(dato);
+        if (a != null) {
+            return;
+        }
         Vertice nuevo = new Vertice(dato);
         if (primero == null) {
             primero = nuevo;
@@ -77,7 +80,7 @@ public class Grafo {
     public Vertice buscar(String dato) {
         if (primero != null) {
             Vertice aux = primero;
-            while (aux != null && aux.proteina.equals(dato)) {
+            while (aux != null && !aux.proteina.equals(dato)) {
                 aux = aux.sig;
 
             }

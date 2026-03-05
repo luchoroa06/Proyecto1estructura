@@ -4,16 +4,18 @@
  */
 package proyectoestructura;
 
+import proyectoestructura.ventanas.Menuinicial;
+
 /**
  *
  * @author PC
  */
 public class ProyectoEstructura {
-
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Menuinicial m = new Menuinicial (new Grafo());
         
     }
     

@@ -6,10 +6,10 @@ package proyectoestructura;
 
 /**
  *
- * @author PC
+ * @author sebas
  */
 public class NodoCola {
-    NodoCola sig;
+        NodoCola sig;
     Vertice dato;
 
     public NodoCola(Vertice dato) {
@@ -21,3 +21,4 @@ public class NodoCola {
     
     
 }
+
