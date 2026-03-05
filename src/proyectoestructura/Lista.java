@@ -80,4 +80,16 @@ public class Lista {
         }
         return salida; 
     }
+    public String [] getNombres(){
+            Nodo aux = primero;
+            String [] x = new String[t];
+            int i = 0;
+            while (aux != null){
+                x [i]=aux.dato;
+                aux= aux.sig;
+                i++;
+                        
+            }
+            return x;
+    }
 }

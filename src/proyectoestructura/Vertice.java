@@ -9,7 +9,7 @@ package proyectoestructura;
  * @author PC
  */
 public class Vertice {
-    String proteina;
+    public String proteina;
     Lista aristas;
     Vertice sig;
     Vertice ant;

@@ -4,7 +4,15 @@
  */
 package proyectoestructura.ventanas;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import org.graphstream.graph.Graph;
+import org.graphstream.graph.implementations.SingleGraph;
+import org.graphstream.ui.swing_viewer.SwingViewer;
+import org.graphstream.ui.swing_viewer.ViewPanel;
+import org.graphstream.ui.view.Viewer;
 import proyectoestructura.Grafo;
+import proyectoestructura.Vertice;
 
 /**
  *
@@ -21,7 +29,48 @@ public class mostrargrafo extends javax.swing.JFrame {
         initComponents();
         this.grafo = nuevo;
         this.setVisible(true);
+        this.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE); 
+        this.setTitle("Analizador de Red Social (Grafos)");
+        this.setPreferredSize(new Dimension(800, 600)); 
+        this.pack();
+        this.setLocationRelativeTo(null);
+        dibujarGrafo();
                 
+    }
+    private void dibujarGrafo() {
+
+        if (grafo == null) {
+            return;
+        }
+
+        System.setProperty("org.graphstream.ui", "swing");
+        Graph graph = new SingleGraph("RedSocial");
+        String stylesheet = "graph {" + "fill-color:#222222;" + "}" + "node{" + "text-size: 25px;" + "text-color:white;" + "}";
+        graph.setAttribute("ui.stylesheet", stylesheet);
+
+        Vertice[] vertices = grafo.getVertices();
+        for (Vertice v : vertices) {
+            graph.addNode(v.proteina).setAttribute("ui.label", v.proteina);
+        }
+
+        int edgeId = 0;
+        for (Vertice v : vertices) {
+            String[] nombresAdyacentes = v.aristas.getNombres();
+            for (String adyacente : nombresAdyacentes) {
+                if (graph.getNode(adyacente) != null) {
+                    graph.addEdge(String.valueOf(edgeId++), v.proteina, adyacente, true);
+                }
+            }
+        }
+
+        Viewer viewer = new SwingViewer(graph, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
+        viewer.enableAutoLayout();
+        ViewPanel viewPanel = (ViewPanel) viewer.addDefaultView(false);
+
+        panel.setLayout(new BorderLayout());
+        panel.add(viewPanel, BorderLayout.CENTER);
+        panel.revalidate();
+        panel.repaint();
     }
 
     /**
@@ -33,7 +82,7 @@ public class mostrargrafo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        panel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -41,19 +90,20 @@ public class mostrargrafo extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Mostrar Grafo");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, -1, -1));
+        panel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, -1, -1));
 
         jButton1.setText("Mostrar Grafo");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 300, -1, -1));
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+        panel.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 340, -1, -1));
 
         jButton2.setText("Atras");
         jButton2.addActionListener(this::jButton2ActionPerformed);
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, -1, -1));
+        panel.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 560));
+        getContentPane().add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 560));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -62,6 +112,10 @@ public class mostrargrafo extends javax.swing.JFrame {
 Menuinicial m = new Menuinicial (grafo);
 this.dispose();// TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -92,6 +146,6 @@ this.dispose();// TODO add your handling code here:
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel panel;
     // End of variables declaration//GEN-END:variables
 }

@@ -130,4 +130,15 @@ public class Grafo {
         }
         return Mayorzote;
     }
+    public Vertice []getVertices(){
+        Vertice[]x = new Vertice [this.t];
+        Vertice aux = primero;
+        int i = 0;
+        while (aux != null){
+            x [i]= aux;
+            aux = aux.sig;
+            i++;
+        }
+        return x ;
+    }
 }
