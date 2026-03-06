@@ -5,12 +5,13 @@
 package proyectoestructura;
 
 /**
- *
+ * Nodo especial para implementar una cola de vértices
  * @author sebas
  */
 public class NodoCola {
-        NodoCola sig;
-    Vertice dato;
+    NodoCola sig;       // Siguiente nodo en la cola
+    Vertice dato;       // Vértice almacenado
+
 
     public NodoCola(Vertice dato) {
         this.sig = null;
