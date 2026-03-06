@@ -5,19 +5,20 @@
 package proyectoestructura;
 
 /**
- *
- * @author PC
+ * represneta un vertice en el grafo
+ * cada vertice almacena una proteina y sus conexiones 
  */
 public class Vertice {
-    public String proteina;
-    Lista aristas;
-    Vertice sig;
-    Vertice ant;
+    public String proteina;         // Nombre de la proteina que almacena el vertice
+    Lista aristas;                  // Lista de aristas que conectan el vertice
+    Vertice sig;                    // puntero de siguinte
+    Vertice ant;                    // puntero del anterior
 
+    //contructor para la creacion del vertice con el nombre de su proteina
     public Vertice(String proteina) {
-        this.proteina = proteina;
-        this.aristas = new Lista();
-        this.sig = null;
+        this.proteina = proteina;              
+        this.aristas = new Lista();       //crea una nueva lista vacia de las aristas
+        this.sig = null;                  
         this.ant = null;
     }
     
