@@ -53,6 +53,7 @@ public class Insertarproteina extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, -1, -1));
 
         jButton1.setText("Agregar");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 110, -1, -1));
         jPanel1.add(proteina, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 100, 120, 50));
 
@@ -83,6 +84,10 @@ public class Insertarproteina extends javax.swing.JFrame {
 modificargrafo m = new modificargrafo (grafo);
 this.dispose();// TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

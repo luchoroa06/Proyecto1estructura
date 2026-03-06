@@ -10,7 +10,7 @@ package proyectoestructura;
  */
 public class Vertice {
     public String proteina;         // Nombre de la proteina que almacena el vertice
-    Lista aristas;                  // Lista de aristas que conectan el vertice
+    public Lista aristas;                  // Lista de aristas que conectan el vertice
     Vertice sig;                    // puntero de siguinte
     Vertice ant;                    // puntero del anterior
 
