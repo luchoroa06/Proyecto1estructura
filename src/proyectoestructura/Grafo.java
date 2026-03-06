@@ -171,4 +171,179 @@ public class Grafo {
         }
         return x ;
     }
+    public String BFS() {
+        String resultado = "Componentes Conexos (BFS):\n";
+        boolean[] visitado = new boolean[t];
+        Vertice[] todos = getVertices();
+        int contador = 1;
+
+        for (int i = 0; i < t; i++) {
+            if (!visitado[i]) {
+                resultado += "Componente " + (contador++) + ": ";
+                Cola cola = new Cola();
+                cola.encolar(todos[i]);
+                visitado[i] = true;
+
+                while (cola.primero != null) {
+                    Vertice actual = cola.desencolar().dato;
+                    resultado += actual.proteina + " ";
+
+                    Nodo arista = actual.aristas.primero;
+                    while (arista != null) {
+                        int indiceVecino = encontrarIndice(arista.dato, todos);
+                        if (indiceVecino != -1 && !visitado[indiceVecino]) {
+                            visitado[indiceVecino] = true;
+                            cola.encolar(todos[indiceVecino]);
+                        }
+                        arista = arista.sig;
+                    }
+                }
+                resultado += "\n";
+            }
+        }
+        return resultado;
+    }
+
+    public String DFS() {
+        String resultado = "Componentes Conexos (DFS):\n";
+        boolean[] visitado = new boolean[t];
+        Vertice[] todos = getVertices();
+        int contador = 1;
+
+        for (int i = 0; i < t; i++) {
+            if (!visitado[i]) {
+                resultado += "Componente " + (contador++) + ": ";
+                resultado = recorrerDFS(todos[i], visitado, todos, resultado);
+                resultado += "\n";
+            }
+        }
+        return resultado;
+    }
+
+    private String recorrerDFS(Vertice v, boolean[] visitado, Vertice[] todos, String res) {
+        int idx = encontrarIndice(v.proteina, todos);
+        visitado[idx] = true;
+        res += v.proteina + " ";
+
+        Nodo arista = v.aristas.primero;
+        while (arista != null) {
+            int idxVecino = encontrarIndice(arista.dato, todos);
+            if (idxVecino != -1 && !visitado[idxVecino]) {
+                res = recorrerDFS(todos[idxVecino], visitado, todos, res);
+            }
+            arista = arista.sig;
+        }
+        return res;
+    }
+
+    public String dijkstra(String inicio, String fin) {
+        Vertice[] vertices = getVertices();
+        int n = vertices.length;
+        int startIdx = encontrarIndice(inicio, vertices);
+        int endIdx = encontrarIndice(fin, vertices);
+
+        if (startIdx == -1 || endIdx == -1) return "Proteína no encontrada.";
+
+        int[] distancias = new int[n];
+        int[] padres = new int[n];
+        boolean[] visitados = new boolean[n];
+
+        for (int i = 0; i < n; i++) {
+            distancias[i] = Integer.MAX_VALUE;
+            padres[i] = -1;
+            visitados[i] = false;
+        }
+
+        distancias[startIdx] = 0;
+
+        for (int i = 0; i < n - 1; i++) {
+            int u = -1;
+            int min = Integer.MAX_VALUE;
+            for (int j = 0; j < n; j++) {
+                if (!visitados[j] && distancias[j] <= min) {
+                    min = distancias[j];
+                    u = j;
+                }
+            }
+
+            if (u == -1 || distancias[u] == Integer.MAX_VALUE) break;
+            visitados[u] = true;
+
+            Nodo arista = vertices[u].aristas.primero;
+            while (arista != null) {
+                int v = encontrarIndice(arista.dato, vertices);
+                if (v != -1 && !visitados[v]) {
+                    int nuevaDist = distancias[u] + arista.peso;
+                    if (nuevaDist < distancias[v]) {
+                        distancias[v] = nuevaDist;
+                        padres[v] = u;
+                    }
+                }
+                arista = arista.sig;
+            }
+        }
+
+        if (distancias[endIdx] == Integer.MAX_VALUE) return "No hay camino entre " + inicio + " y " + fin;
+
+        String camino = "";
+        int temp = endIdx;
+        while (temp != -1) {
+            camino = vertices[temp].proteina + (camino.isEmpty() ? "" : " -> ") + camino;
+            temp = padres[temp];
+        }
+
+        return "Camino más corto: " + camino + " (Peso total: " + distancias[endIdx] + ")";
+    }
+
+    private int encontrarIndice(String nombre, Vertice[] lista) {
+        for (int i = 0; i < lista.length; i++) {
+            if (lista[i].proteina.equals(nombre)) return i;
+        }
+        return -1;
+    }
+    
+    public String encontrarHubs() {
+    if (primero == null) return "El grafo está vacío.";
+
+    int maxConexiones = -1;
+    Vertice aux = primero;
+
+    while (aux != null) {
+        int conexionesActuales = 0;
+        Nodo arista = aux.aristas.primero;
+        while (arista != null) {
+            conexionesActuales++;
+            arista = arista.sig;
+        }
+
+        if (conexionesActuales > maxConexiones) {
+            maxConexiones = conexionesActuales;
+        }
+        aux = aux.sig;
+    }
+
+    String hubs = "Proteína(s) Hub (con " + maxConexiones + " conexiones): ";
+    aux = primero;
+    boolean primeroEncontrado = false;
+
+    while (aux != null) {
+        int conexionesActuales = 0;
+        Nodo arista = aux.aristas.primero;
+        while (arista != null) {
+            conexionesActuales++;
+            arista = arista.sig;
+        }
+
+        if (conexionesActuales == maxConexiones) {
+            if (primeroEncontrado) {
+                hubs += ", ";
+            }
+            hubs += "[" + aux.proteina + "]";
+            primeroEncontrado = true;
+        }
+        aux = aux.sig;
+    }
+
+    return hubs;
+}
 }

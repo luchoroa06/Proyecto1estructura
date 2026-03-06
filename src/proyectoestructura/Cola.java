@@ -25,6 +25,7 @@ public class Cola {
         NodoCola nuevo = new NodoCola(a);
         if(primero == null){
             primero = ultimo = nuevo;
+            return;
         }
         ultimo.sig = nuevo;
         ultimo = nuevo;

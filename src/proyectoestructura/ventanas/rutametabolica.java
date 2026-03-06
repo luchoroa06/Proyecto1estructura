@@ -39,32 +39,60 @@ public class rutametabolica extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        fin = new javax.swing.JTextField();
+        inicio = new javax.swing.JTextField();
+        label1 = new java.awt.Label();
+        label2 = new java.awt.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setBackground(new java.awt.Color(252, 251, 247));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 10)); // NOI18N
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 160, 290, 200));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 280, 160));
 
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel1.setText("Ruta metabolica mas corta");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Busqueda por Dijkstra");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 120, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, -1, -1));
 
+        jButton1.setBackground(new java.awt.Color(204, 204, 255));
+        jButton1.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 12)); // NOI18N
         jButton1.setText("Busqueda por Dijkstra");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 420, -1, -1));
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, -1, -1));
 
+        jButton2.setBackground(new java.awt.Color(204, 204, 255));
+        jButton2.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 10)); // NOI18N
         jButton2.setText("Atras");
         jButton2.addActionListener(this::jButton2ActionPerformed);
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 490, -1, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, 560));
+        fin.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 10)); // NOI18N
+        jPanel1.add(fin, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 270, 100, -1));
+
+        inicio.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 10)); // NOI18N
+        jPanel1.add(inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 130, 100, -1));
+
+        label1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        label1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        label1.setText("Inicio");
+        jPanel1.add(label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, -1, -1));
+
+        label2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        label2.setText("Final");
+        jPanel1.add(label2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 240, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 400));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -73,6 +101,10 @@ public class rutametabolica extends javax.swing.JFrame {
 Menuinicial m = new Menuinicial (grafo);
 this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    this.jTextArea1.setText(grafo.dijkstra(this.inicio.getText(), this.fin.getText()));        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -100,6 +132,8 @@ this.dispose();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField fin;
+    private javax.swing.JTextField inicio;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -107,5 +141,7 @@ this.dispose();
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
+    private java.awt.Label label1;
+    private java.awt.Label label2;
     // End of variables declaration//GEN-END:variables
 }

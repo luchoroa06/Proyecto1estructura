@@ -96,10 +96,11 @@ public class mostrargrafo extends javax.swing.JFrame {
         panel.setBackground(new java.awt.Color(252, 251, 247));
         panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jButton2.setBackground(new java.awt.Color(204, 204, 255));
         jButton2.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 10)); // NOI18N
         jButton2.setText("Atras");
         jButton2.addActionListener(this::jButton2ActionPerformed);
-        panel.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, -1, -1));
+        panel.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, -1, -1));
 
         getContentPane().add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 850, 500));
 

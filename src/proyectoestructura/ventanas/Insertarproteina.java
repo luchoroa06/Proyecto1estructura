@@ -47,35 +47,54 @@ public class Insertarproteina extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setBackground(new java.awt.Color(252, 251, 247));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel1.setText("Insertar Proteina");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, -1));
 
+        jButton1.setBackground(new java.awt.Color(204, 204, 255));
+        jButton1.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 12)); // NOI18N
         jButton1.setText("Agregar");
         jButton1.addActionListener(this::jButton1ActionPerformed);
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 110, -1, -1));
-        jPanel1.add(proteina, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 100, 120, 50));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, -1, -1));
 
+        proteina.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 10)); // NOI18N
+        proteina.addActionListener(this::proteinaActionPerformed);
+        jPanel1.add(proteina, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 160, 70));
+
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Inserta el nombre de la Proteina");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, -1, -1));
-        jPanel1.add(peso, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 100, 120, 50));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, 20));
 
+        peso.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 10)); // NOI18N
+        jPanel1.add(peso, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 180, 80));
+
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setText("Inserta el peso de la arista");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 70, -1, -1));
-        jPanel1.add(proteinados, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 230, 130, 50));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, -1, -1));
 
+        proteinados.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 10)); // NOI18N
+        jPanel1.add(proteinados, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 170, 70));
+
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setText("Inserta el nombre de la segunda proteina");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 200, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, -1, -1));
 
+        jButton2.setBackground(new java.awt.Color(204, 204, 255));
+        jButton2.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 10)); // NOI18N
         jButton2.setText("Atras");
         jButton2.addActionListener(this::jButton2ActionPerformed);
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 480, -1, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, -1));
 
+        jButton3.setBackground(new java.awt.Color(204, 204, 255));
+        jButton3.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 12)); // NOI18N
         jButton3.setText("Insertar peso");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 160, -1, -1));
+        jButton3.addActionListener(this::jButton3ActionPerformed);
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 320, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, 550));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 400));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -87,7 +106,17 @@ this.dispose();// TODO add your handling code here:
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        grafo.insertar(this.proteina.getText());
+        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    grafo.insertarArista(grafo.buscar(this.proteina.getText()), grafo.buscar(this.proteinados.getText()), Integer.parseInt(this.peso.getText()));        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void proteinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proteinaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_proteinaActionPerformed
 
     /**
      * @param args the command line arguments
