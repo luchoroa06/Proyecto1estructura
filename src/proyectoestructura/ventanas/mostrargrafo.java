@@ -45,7 +45,7 @@ public class mostrargrafo extends javax.swing.JFrame {
 
         System.setProperty("org.graphstream.ui", "swing");
         Graph graph = new SingleGraph("RedSocial");
-        String stylesheet = "graph {" + "fill-color:#222222;" + "}" + "node{" + "text-size: 25px;" + "text-color:white;" + "}";
+        String stylesheet = "graph {" + "fill-color:white;" + "}" + "node{" + "text-size: 40px;" + "text-color:blue;" + "}";
         graph.setAttribute("ui.stylesheet", stylesheet);
 
         Vertice[] vertices = grafo.getVertices();
@@ -82,28 +82,35 @@ public class mostrargrafo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPasswordField1 = new javax.swing.JPasswordField();
         panel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+
+        jPasswordField1.setText("jPasswordField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        panel.setBackground(new java.awt.Color(252, 251, 247));
         panel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Mostrar Grafo");
-        panel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, -1, -1));
-
-        jButton1.setText("Mostrar Grafo");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
-        panel.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 340, -1, -1));
-
+        jButton2.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 10)); // NOI18N
         jButton2.setText("Atras");
         jButton2.addActionListener(this::jButton2ActionPerformed);
-        panel.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, -1, -1));
+        panel.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, -1, -1));
 
-        getContentPane().add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 560));
+        getContentPane().add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 850, 500));
+
+        jPanel1.setBackground(new java.awt.Color(252, 251, 247));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        jLabel1.setText("Mostrar Grafo");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 250, 60));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 70));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -112,10 +119,6 @@ public class mostrargrafo extends javax.swing.JFrame {
 Menuinicial m = new Menuinicial (grafo);
 this.dispose();// TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,9 +146,10 @@ this.dispose();// TODO add your handling code here:
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JPanel panel;
     // End of variables declaration//GEN-END:variables
 }
