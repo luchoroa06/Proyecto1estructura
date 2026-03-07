@@ -24,7 +24,7 @@ public class Cola {
     public void encolar(Vertice a){
         NodoCola nuevo = new NodoCola(a);
         if(primero == null){
-            primero = ultimo = nuevo;
+            primero = ultimo = nuevo;       // Si está vacía, el nuevo es el primero y el último
             return;
         }
         ultimo.sig = nuevo;
@@ -36,9 +36,9 @@ public class Cola {
      */   
     public NodoCola desencolar(){
         if(primero!= null){
-        NodoCola denigrado = primero;
-        primero = primero.sig;
-        return denigrado;
+            NodoCola denigrado = primero;
+            primero = primero.sig;
+            return denigrado;
         }
         return null;
     

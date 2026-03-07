@@ -171,143 +171,206 @@ public class Grafo {
         }
         return x ;
     }
-    public String BFS() {
-        String resultado = "Componentes Conexos (BFS):\n";
-        boolean[] visitado = new boolean[t];
-        Vertice[] todos = getVertices();
-        int contador = 1;
+/**
+ * Realiza un recorrido BFS para encontrar todos los 
+ * componentes conexos del grafo.
+ * 
+ * @return String con la lista de componentes conexos encontrados mediante BFS
+ */
+public String BFS() {
+    String resultado = "Componentes Conexos (BFS):\n";
+    boolean[] visitado = new boolean[t];          // Array para marcar vértices visitados
+    Vertice[] todos = getVertices();               // Obtiene todos los vértices del grafo
+    int contador = 1;                               // Contador de componentes
 
-        for (int i = 0; i < t; i++) {
-            if (!visitado[i]) {
-                resultado += "Componente " + (contador++) + ": ";
-                Cola cola = new Cola();
-                cola.encolar(todos[i]);
-                visitado[i] = true;
+    // Itera sobre todos los vértices
+    for (int i = 0; i < t; i++) {
+        if (!visitado[i]) {                          // Si el vértice no ha sido visitado, es un nuevo componente
+            resultado += "Componente " + (contador++) + ": ";
+            
+            Cola cola = new Cola();                  // Cola para BFS
+            cola.encolar(todos[i]);                   // Encola el vértice inicial
+            visitado[i] = true;                        // Lo marca como visitado
 
-                while (cola.primero != null) {
-                    Vertice actual = cola.desencolar().dato;
-                    resultado += actual.proteina + " ";
+            // Mientras la cola no esté vacía
+            while (cola.primero != null) {
+                Vertice actual = cola.desencolar().dato;  // Obtiene el vértice del frente de la cola
+                resultado += actual.proteina + " ";        // Agrega el vértice al resultado
 
-                    Nodo arista = actual.aristas.primero;
-                    while (arista != null) {
-                        int indiceVecino = encontrarIndice(arista.dato, todos);
-                        if (indiceVecino != -1 && !visitado[indiceVecino]) {
-                            visitado[indiceVecino] = true;
-                            cola.encolar(todos[indiceVecino]);
-                        }
-                        arista = arista.sig;
+                // Itera sobre todas las aristas (vecinos) del vértice actual
+                Nodo arista = actual.aristas.primero;
+                while (arista != null) {
+                    int indiceVecino = encontrarIndice(arista.dato, todos);  // Busca índice del vecino
+                    if (indiceVecino != -1 && !visitado[indiceVecino]) {     // Si no ha sido visitado
+                        visitado[indiceVecino] = true;                         // Lo marca como visitado
+                        cola.encolar(todos[indiceVecino]);                     // Lo encola para procesar después
                     }
+                    arista = arista.sig;                                        // Pasa al siguiente
                 }
-                resultado += "\n";
             }
+            resultado += "\n";
         }
-        return resultado;
+    }
+    return resultado;
+}
+
+/**
+ * Realiza un recorrido DFS (Depth-First Search) para encontrar todos los 
+ * componentes conexos del grafo.
+ * 
+ * @return String con la lista de componentes conexos encontrados
+ */
+public String DFS() {
+    String resultado = "Componentes Conexos (DFS):\n";
+    boolean[] visitado = new boolean[t];          // Array para marcar vértices visitados
+    Vertice[] todos = getVertices();               // Obtiene todos los vértices
+    int contador = 1;                               // Contador de componentes
+
+    // Itera sobre todos los vértices
+    for (int i = 0; i < t; i++) {
+        if (!visitado[i]) {                          // Nuevo componente encontrado
+            resultado += "Componente " + (contador++) + ": ";
+            // Llama al método recursivo para recorrer el componente completo
+            resultado = recorrerDFS(todos[i], visitado, todos, resultado);
+            resultado += "\n";
+        }
+    }
+    return resultado;
+}
+
+/**
+ * Método auxiliar recursivo para DFS.
+ * Realiza el recorrido en profundidad a partir de un vértice dado.
+ * 
+ * @param v Vértice actual que se está visitando
+ * @param visitado Array de booleanos que indica qué vértices han sido visitados
+ * @param todos Array con todos los vértices del grafo
+ * @param res String acumulado con el resultado hasta el momento
+ * @return String actualizado con el nuevo vértice visitado
+ */
+private String recorrerDFS(Vertice v, boolean[] visitado, Vertice[] todos, String res) {
+    int idx = encontrarIndice(v.proteina, todos);  // Encuentra el índice del vértice actual
+    visitado[idx] = true;                           // Marca como visitado
+    res += v.proteina + " ";                         // Agrega al resultado
+
+    // Itera sobre todas las aristas (vecinos) del vértice actual
+    Nodo arista = v.aristas.primero;
+    while (arista != null) {
+        int idxVecino = encontrarIndice(arista.dato, todos);  // Índice del vecino
+        if (idxVecino != -1 && !visitado[idxVecino]) {         // Si no ha sido visitado
+            // Llamada recursiva para explorar el vecino en profundidad
+            res = recorrerDFS(todos[idxVecino], visitado, todos, res);
+        }
+        arista = arista.sig;                                    // Siguiente vecino
+    }
+    return res;
+}
+
+/**
+ * Implementación del algoritmo de Dijkstra para encontrar la ruta más corta
+ * entre dos proteínas en el grafo 
+ * 
+ * @param inicio Nombre de la proteína de inicio
+ * @param fin Nombre de la proteína de destino
+ * @return String con el camino más corto y el peso total, o mensaje de error
+ */
+public String dijkstra(String inicio, String fin) {
+    Vertice[] vertices = getVertices();               // Obtiene todos los vértices
+    int n = vertices.length;
+    int startIdx = encontrarIndice(inicio, vertices);  // Índice del primer vertice
+    int endIdx = encontrarIndice(fin, vertices);       // Índice del vertice donde quieres llegar
+
+    if (startIdx == -1 || endIdx == -1) return "Proteína no encontrada.";
+
+    int[] distancias = new int[n];                     // Distancia mínima desde inicio a cada vértice
+    int[] padres = new int[n];                          // Almacena el vértice anterior en la ruta óptima
+    boolean[] visitados = new boolean[n];               
+
+    // Inicialización: todas las distancias son "infinito" y padres son -1
+    for (int i = 0; i < n; i++) {
+        distancias[i] = Integer.MAX_VALUE;
+        padres[i] = -1;
+        visitados[i] = false;
     }
 
-    public String DFS() {
-        String resultado = "Componentes Conexos (DFS):\n";
-        boolean[] visitado = new boolean[t];
-        Vertice[] todos = getVertices();
-        int contador = 1;
+    distancias[startIdx] = 0;  // La distancia al vértice inicio es 0
 
-        for (int i = 0; i < t; i++) {
-            if (!visitado[i]) {
-                resultado += "Componente " + (contador++) + ": ";
-                resultado = recorrerDFS(todos[i], visitado, todos, resultado);
-                resultado += "\n";
+    // Bucle principal de Dijkstra 
+    for (int i = 0; i < n - 1; i++) {
+        //Seleccionar el vértice no visitado con la distancia mínima
+        int u = -1;
+        int min = Integer.MAX_VALUE;
+        for (int j = 0; j < n; j++) {
+            if (!visitados[j] && distancias[j] <= min) {
+                min = distancias[j];
+                u = j;
             }
         }
-        return resultado;
-    }
 
-    private String recorrerDFS(Vertice v, boolean[] visitado, Vertice[] todos, String res) {
-        int idx = encontrarIndice(v.proteina, todos);
-        visitado[idx] = true;
-        res += v.proteina + " ";
+        //Si no hay vértice alcanzable o la distancia es infinita, terminamos
+        if (u == -1 || distancias[u] == Integer.MAX_VALUE) break;
+        
+        //Marcar como visitado (ya tenemos la distancia mínima para este vértice)
+        visitados[u] = true;
 
-        Nodo arista = v.aristas.primero;
+        //Relajar las aristas del vértice seleccionado
+        Nodo arista = vertices[u].aristas.primero;
         while (arista != null) {
-            int idxVecino = encontrarIndice(arista.dato, todos);
-            if (idxVecino != -1 && !visitado[idxVecino]) {
-                res = recorrerDFS(todos[idxVecino], visitado, todos, res);
+            int v = encontrarIndice(arista.dato, vertices);     // Índice del vecino
+            if (v != -1 && !visitados[v]) {
+                int nuevaDist = distancias[u] + arista.peso;    // Distancia a través de u
+                if (nuevaDist < distancias[v]) {                // Si encontramos un camino más corto
+                    distancias[v] = nuevaDist;                  // Actualizamos distancia
+                    padres[v] = u;                              // Actualizamos el padre
+                }
             }
             arista = arista.sig;
         }
-        return res;
     }
 
-    public String dijkstra(String inicio, String fin) {
-        Vertice[] vertices = getVertices();
-        int n = vertices.length;
-        int startIdx = encontrarIndice(inicio, vertices);
-        int endIdx = encontrarIndice(fin, vertices);
+    // Verificar si hay camino
+    if (distancias[endIdx] == Integer.MAX_VALUE) 
+        return "No hay camino entre " + inicio + " y " + fin;
 
-        if (startIdx == -1 || endIdx == -1) return "Proteína no encontrada.";
-
-        int[] distancias = new int[n];
-        int[] padres = new int[n];
-        boolean[] visitados = new boolean[n];
-
-        for (int i = 0; i < n; i++) {
-            distancias[i] = Integer.MAX_VALUE;
-            padres[i] = -1;
-            visitados[i] = false;
-        }
-
-        distancias[startIdx] = 0;
-
-        for (int i = 0; i < n - 1; i++) {
-            int u = -1;
-            int min = Integer.MAX_VALUE;
-            for (int j = 0; j < n; j++) {
-                if (!visitados[j] && distancias[j] <= min) {
-                    min = distancias[j];
-                    u = j;
-                }
-            }
-
-            if (u == -1 || distancias[u] == Integer.MAX_VALUE) break;
-            visitados[u] = true;
-
-            Nodo arista = vertices[u].aristas.primero;
-            while (arista != null) {
-                int v = encontrarIndice(arista.dato, vertices);
-                if (v != -1 && !visitados[v]) {
-                    int nuevaDist = distancias[u] + arista.peso;
-                    if (nuevaDist < distancias[v]) {
-                        distancias[v] = nuevaDist;
-                        padres[v] = u;
-                    }
-                }
-                arista = arista.sig;
-            }
-        }
-
-        if (distancias[endIdx] == Integer.MAX_VALUE) return "No hay camino entre " + inicio + " y " + fin;
-
-        String camino = "";
-        int temp = endIdx;
-        while (temp != -1) {
-            camino = vertices[temp].proteina + (camino.isEmpty() ? "" : " -> ") + camino;
-            temp = padres[temp];
-        }
-
-        return "Camino más corto: " + camino + " (Peso total: " + distancias[endIdx] + ")";
+    // Reconstruir el camino desde el destino hasta el inicio usando el array de padres
+    String camino = "";
+    int temp = endIdx;
+    while (temp != -1) {
+        camino = vertices[temp].proteina + (camino.isEmpty() ? "" : " -> ") + camino;
+        temp = padres[temp];
     }
 
-    private int encontrarIndice(String nombre, Vertice[] lista) {
-        for (int i = 0; i < lista.length; i++) {
-            if (lista[i].proteina.equals(nombre)) return i;
-        }
-        return -1;
+    return "Camino más corto: " + camino + " (Peso total: " + distancias[endIdx] + ")";
+}
+
+/**
+ * Método auxiliar para encontrar el índice de un vértice en el array
+ * dado su nombre
+ * 
+ * @param nombre Nombre de la proteína a buscar
+ * @param lista Array de vértices donde buscar
+ * @return Índice del vértice o -1 si no se encuentra
+ */
+private int encontrarIndice(String nombre, Vertice[] lista) {
+    for (int i = 0; i < lista.length; i++) {
+        if (lista[i].proteina.equals(nombre)) return i;
     }
-    
-    public String encontrarHubs() {
+    return -1;
+}
+
+/**
+ * Identifica las proteínas "hub" del grafo, es decir, aquellas con el
+ * mayor número de conexiones
+ * 
+ * @return String con las proteínas que tienen el máximo de conexiones
+ */
+public String encontrarHubs() {
     if (primero == null) return "El grafo está vacío.";
 
     int maxConexiones = -1;
     Vertice aux = primero;
 
+    // Encuenta el número máximo de conexiones
     while (aux != null) {
         int conexionesActuales = 0;
         Nodo arista = aux.aristas.primero;
@@ -317,11 +380,12 @@ public class Grafo {
         }
 
         if (conexionesActuales > maxConexiones) {
-            maxConexiones = conexionesActuales;
+            maxConexiones = conexionesActuales;  // Actualiza el máximo
         }
         aux = aux.sig;
     }
 
+    //Encuentra todos los vértices que tengan ese máximo
     String hubs = "Proteína(s) Hub (con " + maxConexiones + " conexiones): ";
     aux = primero;
     boolean primeroEncontrado = false;
@@ -336,7 +400,7 @@ public class Grafo {
 
         if (conexionesActuales == maxConexiones) {
             if (primeroEncontrado) {
-                hubs += ", ";
+                hubs += ", ";  // Agrega separador si ya hay uno antes
             }
             hubs += "[" + aux.proteina + "]";
             primeroEncontrado = true;
@@ -345,5 +409,5 @@ public class Grafo {
     }
 
     return hubs;
-}
+    }
 }
